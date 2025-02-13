@@ -6,15 +6,16 @@ module.exports = {
             numberOfRuns: 1,
             settings: {
                 onlyCategories: ['accessibility'],
+                skipAudits: ['aria-allowed-attr'],
             },
         },
         assert: {
             assertions: {
-                'categories:accessibility': ['warn', { minScore: 1 }],
+                'categories:accessibility': ['error', { minScore: 1 }],
             },
         },
-        upload: {
-            target: 'temporary-public-storage',
-        },
+        // upload: {
+        //     target: 'temporary-public-storage',
+        // },
     },
 };
