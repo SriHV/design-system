@@ -2,7 +2,7 @@ module.exports = {
     ci: {
         collect: {
             staticDistDir: './build',
-            url: require('./urls.json').urls,
+            // url: require('./urls.json').urls,
             // url: [
             //     'patterns/correct-errors/example-errors-proto.html',
             //     'patterns/correct-errors/example-errors-proto-errors.html',
@@ -39,27 +39,21 @@ module.exports = {
                     },
                 },
                 {
-                    matchingUrlPattern: 'patterns/feedback/example-feedback-form-.*',
-                    assertions: {
-                        'categories:accessibility': ['error', { minScore: 0.94 }],
-                    },
-                },
-                {
-                    matchingUrlPattern: 'components/radios/example-radios-with-revealed-.*',
+                    matchingUrlPattern: 'components/radios/example-radios-with-revealed.*',
                     assertions: {
                         'categories:accessibility': ['error', { minScore: 0.91 }],
-                    },
-                },
-                {
-                    matchingUrlPattern: 'patterns/correct-errors/example-errors-proto-.*',
-                    assertions: {
-                        'categories:accessibility': ['error', { minScore: 0.94 }],
                     },
                 },
                 {
                     matchingUrlPattern: 'components/radios/example-radios-with-clear-button.*',
                     assertions: {
                         'categories:accessibility': ['error', { minScore: 0.93 }],
+                    },
+                },
+                {
+                    matchingUrlPattern: 'patterns/feedback/example-feedback-form.*|patterns/correct-errors/example-errors-proto.*',
+                    assertions: {
+                        'categories:accessibility': ['error', { minScore: 0.94 }],
                     },
                 },
             ],
