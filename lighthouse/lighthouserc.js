@@ -2,7 +2,7 @@ module.exports = {
     ci: {
         collect: {
             staticDistDir: './build',
-            // url: require('./urls.json').urls,
+            url: require('./urls.json').urls,
             // url: [
             //     'patterns/correct-errors/example-errors-proto.html',
             //     'patterns/correct-errors/example-errors-proto-errors.html',
