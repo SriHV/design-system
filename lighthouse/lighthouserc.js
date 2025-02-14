@@ -14,8 +14,8 @@ module.exports = {
                 'categories:accessibility': ['error', { minScore: 1 }],
             },
         },
-        // upload: {
-        //     target: 'temporary-public-storage',
-        // },
+        upload: {
+            target: 'temporary-public-storage',
+        },
     },
 };
