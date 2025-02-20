@@ -8,8 +8,8 @@ if (window.google_tag_manager !== undefined) {
         gtag('event', type, { ...data });
         console.log('Data sent to Data Layer');
     };
-} else if (!process.env.RUNNING_IN_CI) {
-    console.log('Trying to print process.env', process.env.RUNNING_IN_CI === 'true', process.env.TEST_PORT, process.env.RUNNING_IN_CI);
+} else if (process.env.RUNNING_IN_CI !== 'true') {
+    console.log('RUNNING_IN_CI:', process.env.RUNNING_IN_CI || 'Not Set');
     console.log('Google analytics not connected');
 }
 
