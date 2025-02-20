@@ -9,7 +9,7 @@ if (window.google_tag_manager !== undefined) {
         console.log('Data sent to Data Layer');
     };
 } else if (!process.env.RUNNING_IN_CI) {
-    console.log(process.env.RUNNING_IN_CI);
+    console.log('Trying to print process.env', process.env.RUNNING_IN_CI);
     console.log('Google analytics not connected');
 }
 
