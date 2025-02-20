@@ -22,3 +22,5 @@ jobs:
               run: yarn test:clear-cache
             - name: Run macro and script tests
               run: yarn test
+              env:
+                  RUNNING_IN_CI: ${{ env.RUNNING_IN_CI }}
