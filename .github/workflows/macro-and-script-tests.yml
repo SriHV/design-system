@@ -20,9 +20,6 @@ jobs:
               run: yarn install
             - name: Clear jest cache
               run: yarn test:clear-cache
-            - name: Debug Node.js Environment Variables
-              run: node -e "console.log(process.env.RUNNING_IN_CI)"
-
             - name: Run macro and script tests
               run: yarn test
               env:

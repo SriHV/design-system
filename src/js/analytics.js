@@ -12,7 +12,7 @@ if (window.google_tag_manager !== undefined) {
     console.log('Printing');
 }
  else if (process.env.RUNNING_IN_CI !== 'true') {
-    console.log(process.env);
+    console.log(process.env.RUNNING_IN_CI === 'true' ? ['true'] : ['browser']);
     console.log('RUNNING_IN_CI:', process.env.RUNNING_IN_CI);
 
     console.log('Google analytics not connected');
