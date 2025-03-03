@@ -8,7 +8,7 @@ if (window.google_tag_manager !== undefined) {
         gtag('event', type, { ...data });
         console.log('Data sent to Data Layer');
     };
-} else if (window.ENV?.GITHUB_ACTIONS !== true) {
+} else if (window.ENV?.RUNNING_IN_CI !== true) {
     console.log('Google analytics not connected');
 }
 
