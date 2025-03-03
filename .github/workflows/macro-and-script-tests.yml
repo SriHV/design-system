@@ -21,8 +21,6 @@ jobs:
             - name: Clear jest cache
               run: yarn test:clear-cache
             - name: Set environment variables
-              run: echo "window.ENV = { RUNNING_IN_CI: true };" > env-config.js
+              run: echo 'window.ENV = { RUNNING_IN_CI: true };' > env-config.js
             - name: Run macro and script tests
               run: yarn test
-              env:
-                RUNNING_IN_CI: ${{ env.RUNNING_IN_CI }}
