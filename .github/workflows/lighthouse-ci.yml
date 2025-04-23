@@ -22,16 +22,15 @@ jobs:
               run: yarn build
             - name: Build urls
               run: node ./lighthouse/lighthouse-get-urls.js
-            - name: Run Lighthouse CI with skip mode
-              run: |
-                  npm install -g @lhci/cli@0.14.x
-                  lhci autorun --config=./lighthouse/lighthouserc.js
-              env:
-                  LHCI_MODE: full
-                  LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
             - name: Run Lighthouse CI with skipAudits
               run: |
                   npm install -g @lhci/cli@0.14.x
                   lhci autorun --config=./lighthouse/lighthouserc.js
               env:
                   LHCI_MODE: skip
+                  LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+            - name: Run Lighthouse CI
+              run: |
+                  lhci autorun --config=./lighthouse/lighthouserc.js
+              env:
+                  LHCI_MODE: full

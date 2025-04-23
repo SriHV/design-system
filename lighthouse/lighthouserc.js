@@ -1,4 +1,4 @@
-const mode = process.env.LHCI_MODE || 'full';
+const mode = process.env.LHCI_MODE;
 module.exports = {
     ci: {
         collect: {
