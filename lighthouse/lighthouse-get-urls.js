@@ -27,11 +27,35 @@ async function getUrls() {
             path: './build/foundations',
         },
     ];
+    const skipURLs = [
+        'example-errors-proto.html',
+        'example-errors-proto-errors.html',
+        'example-feedback-form.html',
+        'example-feedback-form-errors.html',
+        'example-radios-with-revealed-text-input.html',
+        'example-radios-with-revealed-text-input-expanded.html',
+        'example-radios-with-revealed-text-area.html',
+        'example-radios-with-revealed-text-area-expanded.html',
+        'example-radios-with-revealed-select.html',
+        'example-radios-with-revealed-select-expanded.html',
+        'example-radios-with-revealed-radios.html',
+        'example-radios-with-revealed-radios-expanded.html',
+        'example-radios-with-revealed-checkboxes.html',
+        'example-radios-with-revealed-checkboxes-expanded.html',
+        'example-radios-with-clear-button.html',
+        'example-radios-with-clear-button-expanded.html',
+        'example-accordion.html',
+        'example-button-custom.html',
+        'example-button-download.html',
+        'index.html',
+        'example-button.html',
+        'example-skip-to-content.html',
+    ];
     for (const directory of directories) {
         const folders = await readdir(directory.path);
         for (const folder of folders) {
             const files = await glob(`${directory.path}/${folder}/**/*.html`);
-            const filteredFiles = files.filter((path) => !path.includes('index.html') && !path.includes('example-skip-to-content.html'));
+            const filteredFiles = files.filter((path) => !path.includes(skipURLs));
             for (const file of filteredFiles) {
                 data.urls.push(file.replace('build/', 'http://localhost/'));
             }
