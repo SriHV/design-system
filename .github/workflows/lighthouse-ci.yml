@@ -23,6 +23,8 @@ jobs:
             - name: Build urls
               run: node ./lighthouse/lighthouse-get-urls.js
             - name: Run Lighthouse CI
+              env:
+                LHCI_MODE: full
               run: |
                   npm install -g @lhci/cli@0.14.x
                   lhci autorun --config=./lighthouse/lighthouserc.js
