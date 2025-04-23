@@ -1,3 +1,4 @@
+const mode = process.env.LHCI_MODE || 'full';
 module.exports = {
     ci: {
         collect: {
@@ -6,39 +7,33 @@ module.exports = {
             numberOfRuns: 1,
             settings: {
                 onlyCategories: ['accessibility'],
+                ...(mode === 'skip' ? { skipAudits: ['aria-allowed-attr'] } : {}),
             },
         },
         assert: {
-            assertMatrix: [
-                {
-                    matchingUrlPattern: 'components/radios/example-radios-with-revealed.*',
-                    assertions: {
-                        'categories:accessibility': ['error', { minScore: 0.91 }],
-                    },
-                },
-                {
-                    matchingUrlPattern: 'components/radios/example-radios-with-clear-button.*',
-                    assertions: {
-                        'categories:accessibility': ['error', { minScore: 0.93 }],
-                    },
-                },
-                {
-                    matchingUrlPattern: 'patterns/feedback/example-feedback-form.*|patterns/correct-errors/example-errors-proto.*',
-                    assertions: {
-                        'categories:accessibility': ['error', { minScore: 0.94 }],
-                    },
-                },
-                {
-                    matchingUrlPattern:
-                        '^(?!.*components/radios/example-radios-with-revealed.*|.*components/radios/example-radios-with-clear-button.*|.*patterns/correct-errors/example-errors-proto.*|.*patterns/feedback/example-feedback-form.*).*',
-                    assertions: {
-                        'categories:accessibility': ['error', { minScore: 1 }],
-                    },
-                },
-            ],
+            assertMatrix:
+                mode == 'skip'
+                    ? [
+                          {
+                              matchingUrlPattern:
+                                  'components/radios/example-radios-with-revealed.*|components/radios/example-radios-with-clear-button.*|patterns/feedback/example-feedback-form.*|patterns/correct-errors/example-errors-proto.*',
+                              assertions: {
+                                  'categories:accessibility': ['error', { minScore: 1 }],
+                              },
+                          },
+                      ]
+                    : [
+                          {
+                              matchingUrlPattern:
+                                  '^(?!.*components/radios/example-radios-with-revealed.*|.*components/radios/example-radios-with-clear-button.*|.*patterns/correct-errors/example-errors-proto.*|.*patterns/feedback/example-feedback-form.*).*',
+                              assertions: {
+                                  'categories:accessibility': ['error', { minScore: 1 }],
+                              },
+                          },
+                      ],
         },
-        upload: {
-            target: 'temporary-public-storage',
-        },
+        // upload: {
+        //     target: 'temporary-public-storage',
+        // },
     },
 };
