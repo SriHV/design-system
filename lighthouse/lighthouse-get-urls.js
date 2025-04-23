@@ -55,7 +55,9 @@ async function getUrls() {
         const folders = await readdir(directory.path);
         for (const folder of folders) {
             const files = await glob(`${directory.path}/${folder}/**/*.html`);
-            const filteredFiles = files.filter((path) => !path.includes(skipURLs));
+            const filteredFiles = files.filter((path) => {
+                return !skipURLs.some((skip) => path.includes(skip));
+            });
             for (const file of filteredFiles) {
                 data.urls.push(file.replace('build/', 'http://localhost/'));
             }

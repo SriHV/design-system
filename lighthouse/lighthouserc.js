@@ -1,6 +1,7 @@
 const mode = process.env.LHCI_MODE;
+console.log(mode);
 const urls =
-    mode === 'skip'
+    mode === 'full'
         ? require('./urls.json').urls
         : [
               'patterns/correct-errors/example-errors-proto.html',
@@ -39,8 +40,8 @@ module.exports = {
                 'categories:accessibility': ['error', { minScore: 1 }],
             },
         },
-        // upload: {
-        //     target: 'temporary-public-storage',
-        // },
+        upload: {
+            target: 'temporary-public-storage',
+        },
     },
 };
