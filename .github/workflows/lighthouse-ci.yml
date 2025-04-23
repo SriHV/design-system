@@ -26,5 +26,11 @@ jobs:
               run: |
                   npm install -g @lhci/cli@0.14.x
                   lhci autorun --config=./lighthouse/lighthouserc.js
+            - name: Run Lighthouse CI with skip mode
+              env:
+                LHCI_MODE: skip
+              run: |
+                  npm install -g @lhci/cli@0.14.x
+                  lhci autorun --config=./lighthouse/lighthouserc.js
               env:
                   LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
