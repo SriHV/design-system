@@ -1,29 +1,5 @@
 const mode = process.env.LHCI_MODE;
-console.log(mode);
-const urls =
-    mode === 'full'
-        ? require('./urls.json').urls
-        : [
-              'patterns/correct-errors/example-errors-proto.html',
-              'patterns/correct-errors/example-errors-proto-errors.html',
-              'patterns/feedback/example-feedback-form.html',
-              'patterns/feedback/example-feedback-form-errors.html',
-              'components/radios/example-radios-with-revealed-text-input.html',
-              'components/radios/example-radios-with-revealed-text-input-expanded.html',
-              'components/radios/example-radios-with-revealed-text-area.html',
-              'components/radios/example-radios-with-revealed-text-area-expanded.html',
-              'components/radios/example-radios-with-revealed-select.html',
-              'components/radios/example-radios-with-revealed-select-expanded.html',
-              'components/radios/example-radios-with-revealed-radios.html',
-              'components/radios/example-radios-with-revealed-radios-expanded.html',
-              'components/radios/example-radios-with-revealed-checkboxes.html',
-              'components/radios/example-radios-with-revealed-checkboxes-expanded.html',
-              'components/radios/example-radios-with-clear-button.html',
-              'components/radios/example-radios-with-clear-button-expanded.html',
-              'components/accordion/example-accordion.html',
-              'components/button/example-button-custom.html',
-              'components/button/example-button-download.html',
-          ];
+const urls = mode === 'all' ? require('./urls.json').urls : require('./urls.json').skipurls; // if env var is 'all' it retrieves urls from url array, else it retrieves urls from skipurls array.
 module.exports = {
     ci: {
         collect: {
@@ -32,7 +8,7 @@ module.exports = {
             numberOfRuns: 1,
             settings: {
                 onlyCategories: ['accessibility'],
-                ...(mode === 'skip' ? { skipAudits: ['aria-allowed-attr'] } : {}),
+                ...(mode === 'skipAudits' ? { skipAudits: ['aria-allowed-attr'] } : {}), // skips aria-allowed-attr audit for the urls in skipurls array
             },
         },
         assert: {

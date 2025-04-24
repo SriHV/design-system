@@ -16,6 +16,7 @@ async function createUrlsFile() {
 async function getUrls() {
     let data = {};
     data.urls = [];
+    data.skipurls = [];
     const directories = [
         {
             path: './build/components',
@@ -27,6 +28,7 @@ async function getUrls() {
             path: './build/foundations',
         },
     ];
+    // collect all the examples fail at 'aria-allowed-attr' audit check
     const skipURLs = [
         'example-errors-proto.html',
         'example-errors-proto-errors.html',
@@ -47,19 +49,24 @@ async function getUrls() {
         'example-accordion.html',
         'example-button-custom.html',
         'example-button-download.html',
-        'index.html',
-        'example-button.html',
-        'example-skip-to-content.html',
     ];
     for (const directory of directories) {
         const folders = await readdir(directory.path);
         for (const folder of folders) {
             const files = await glob(`${directory.path}/${folder}/**/*.html`);
-            const filteredFiles = files.filter((path) => {
-                return !skipURLs.some((skip) => path.includes(skip));
-            });
+            const filteredFiles = files.filter(
+                (path) =>
+                    !path.includes('index.html') &&
+                    !path.includes('example-skip-to-content.html') &&
+                    !skipURLs.some((skip) => path.includes(skip)), // doesn't add index.html, example-skip-to-content and examples mentioned in skipURLs.
+            );
+            const filesWithskipURls = files.filter((path) => skipURLs.some((skip) => path.includes(skip)));
             for (const file of filteredFiles) {
                 data.urls.push(file.replace('build/', 'http://localhost/'));
+            }
+            //add the examples mentioned in skipURLs in a seperate array
+            for (const file of filesWithskipURls) {
+                data.skipurls.push(file.replace('build/', 'http://localhost/'));
             }
         }
     }
