@@ -167,10 +167,11 @@ export default class Timeout {
     }
 
     redirect() {
-        if (this.isValidUrl(this.timeOutRedirectUrl)) {
-            window.location.replace(this.timeOutRedirectUrl);
+        const sanitizedUrl = purify.sanitize(this.timeOutRedirectUrl);
+        if (this.isValidUrl(sanitizedUrl)) {
+            window.location.replace(sanitizedUrl);
         } else {
-            console.error('Invalid redirect URL:', this.timeOutRedirectUrl);
+            console.error('Invalid redirect URL:', sanitizedUrl);
             // Optionally redirect to a default safe URL
             window.location.replace('/default-safe-url');
         }
