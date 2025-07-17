@@ -167,29 +167,8 @@ export default class Timeout {
     }
 
     redirect() {
-        if (this.isValidUrl(this.timeOutRedirectUrl)) {
-            window.location.replace(this.timeOutRedirectUrl);
-        } else {
-            console.error('Invalid redirect URL:', this.timeOutRedirectUrl);
-            // Optionally redirect to a default safe URL
-            window.location.replace('/default-safe-url');
-        }
-    }
-
-    isValidUrl(url) {
-        try {
-            const parsedUrl = new URL(url, window.location.origin);
-            // Ensure the URL uses a safe protocol (e.g., https)
-            const isSafeProtocol = parsedUrl.protocol === 'https:' || parsedUrl.protocol === 'http:';
-
-            // Validate against a whitelist of trusted domains
-            const trustedDomains = ['example.com', 'trusted-site.com'];
-            const isTrustedDomain = trustedDomains.some(domain => parsedUrl.hostname.endsWith(domain));
-
-            return isSafeProtocol && isTrustedDomain;
-        } catch (e) {
-            return false;
-        }
+        const sanitizedUrl = purify.sanitize(this.timeOutRedirectUrl);
+        window.location.replace(sanitizedUrl);
     }
 
     clearTimers() {
