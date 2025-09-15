@@ -1,0 +1,25 @@
+name: Mirror GitHub Issues to Jira
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create-jira-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Jira issue creator
+        run: node lib/github-to-jira.js
+        env:
+          GITHUB_ISSUE: ${{ toJson(github.event.issue) }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }}
+          JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
