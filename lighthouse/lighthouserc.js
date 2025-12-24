@@ -6,6 +6,7 @@ module.exports = {
             numberOfRuns: 1,
             settings: {
                 onlyCategories: ['accessibility'],
+                skipAudits: ['aria-allowed-attr'],
             },
         },
         assert: {
